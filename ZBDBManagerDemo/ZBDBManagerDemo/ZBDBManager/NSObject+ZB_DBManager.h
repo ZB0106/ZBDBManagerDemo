@@ -11,7 +11,7 @@
 
 @interface NSObject (ZB_DBManager)
 
-- (BOOL)creatTableWithDBQueue:(FMDatabaseQueue *)dbQueue primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
+- (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
 - (BOOL)ZB_insertObject:(id)object DBQueue:(FMDatabaseQueue *)dbQueue;
 - (FMResultSet *)ZB_QueryWithDBQueue:(FMDatabaseQueue *)dbQueue;
 

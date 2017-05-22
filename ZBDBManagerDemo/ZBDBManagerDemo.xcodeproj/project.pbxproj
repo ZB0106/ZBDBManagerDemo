@@ -22,6 +22,7 @@
 		04C71DD41ED31BFA00E04BE8 /* VersionDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCB1ED31BFA00E04BE8 /* VersionDBManager.m */; };
 		04C71DD51ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCD1ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m */; };
 		04C71DD61ED31BFA00E04BE8 /* ZBDBbindingClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */; };
+		04C71DD91ED32A6A00E04BE8 /* ZBProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */; };
 		0EA94CF5530F682864694F2F /* libPods-ZBDBManagerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F943CA3037D2F02D8A7880E8 /* libPods-ZBDBManagerDemo.a */; };
 		CDE767705D506C260D80FCB4 /* libPods-ZBDBManagerDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0A1382266EB21648FFA9F0 /* libPods-ZBDBManagerDemoTests.a */; };
 /* End PBXBuildFile section */
@@ -76,6 +77,8 @@
 		04C71DCE1ED31BFA00E04BE8 /* ZBDBbindingClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBbindingClass.h; sourceTree = "<group>"; };
 		04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBbindingClass.m; sourceTree = "<group>"; };
 		04C71DD01ED31BFA00E04BE8 /* ZBDBProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBProtocol.h; sourceTree = "<group>"; };
+		04C71DD71ED32A6A00E04BE8 /* ZBProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBProperty.h; sourceTree = "<group>"; };
+		04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProperty.m; sourceTree = "<group>"; };
 		1B0A1382266EB21648FFA9F0 /* libPods-ZBDBManagerDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZBDBManagerDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87340446E83C461C5CE2043F /* Pods-ZBDBManagerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBDBManagerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZBDBManagerDemo/Pods-ZBDBManagerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		95D93379A63D36A1A7E6855E /* Pods-ZBDBManagerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBDBManagerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZBDBManagerDemo/Pods-ZBDBManagerDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -193,6 +196,8 @@
 				04C71DCE1ED31BFA00E04BE8 /* ZBDBbindingClass.h */,
 				04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */,
 				04C71DD01ED31BFA00E04BE8 /* ZBDBProtocol.h */,
+				04C71DD71ED32A6A00E04BE8 /* ZBProperty.h */,
+				04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */,
 			);
 			path = ZBDBManager;
 			sourceTree = "<group>";
@@ -455,6 +460,7 @@
 				04C71DD11ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m in Sources */,
 				04C71DD21ED31BFA00E04BE8 /* NSObject+ZB_Properties.m in Sources */,
 				04C71DBF1ED31BD200E04BE8 /* CeShi.m in Sources */,
+				04C71DD91ED32A6A00E04BE8 /* ZBProperty.m in Sources */,
 				04C71DD41ED31BFA00E04BE8 /* VersionDBManager.m in Sources */,
 				04C71DD61ED31BFA00E04BE8 /* ZBDBbindingClass.m in Sources */,
 				04C71DC21ED31BEA00E04BE8 /* ViewController.m in Sources */,
@@ -695,6 +701,7 @@
 				04C71DB61ED31BB900E04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04C71DB71ED31BB900E04BE8 /* Build configuration list for PBXNativeTarget "ZBDBManagerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -703,6 +710,7 @@
 				04C71DB91ED31BB900E04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		04C71DBA1ED31BB900E04BE8 /* Build configuration list for PBXNativeTarget "ZBDBManagerDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -711,6 +719,7 @@
 				04C71DBC1ED31BB900E04BE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

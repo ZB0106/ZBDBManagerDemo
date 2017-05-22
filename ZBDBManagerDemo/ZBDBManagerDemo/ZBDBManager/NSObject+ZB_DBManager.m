@@ -17,12 +17,14 @@
 @implementation NSObject (ZB_DBManager)
 
 const static NSMutableDictionary *_propertiesForClassDict;
+const static NSMutableDictionary *_versionForClassDict;
 + (void)load
 {
     _propertiesForClassDict = @{}.mutableCopy;
+    _versionForClassDict = @{}.mutableCopy;
 }
 
-- (BOOL)creatTableWithDBQueue:(FMDatabaseQueue *)dbQueue primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
+- (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
 {
     
     NSString *className = NSStringFromClass([self class]);
@@ -32,15 +34,19 @@ const static NSMutableDictionary *_propertiesForClassDict;
         [_propertiesForClassDict setObject:propertydic forKey:className];
     }
     
+    NSString *version = [_versionForClassDict objectForKey:className];
+    if (!version) {
+        version = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propertydic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    }
     BOOL isExsit = [VersionDBManager isExistVersionWithClassName:className];
     if (isExsit) {
-        
-        NSString *version = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propertydic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-        Version *versionClass = [Version versionWithClassName:className version:version];
-        
         if ([[VersionDBManager getVersionWithClassName:className] isEqualToString:version]) {
+            
             return YES;
+            
         } else {
+            
+            Version *versionClass = [Version versionWithClassName:className version:version];
             [VersionDBManager replaceIntoWithVersion:versionClass];
             //做更新表的操作
         }
@@ -50,13 +56,15 @@ const static NSMutableDictionary *_propertiesForClassDict;
     __block BOOL ret = NO;
     
     __block NSString *sql = nil;
+    
+    FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:[self class]];
     [dbQueue inDatabase:^(FMDatabase *db) {
         sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ %@ PRIMARY KEY);",NSStringFromClass([self class]),primaryKey,primaryKeyType];
         [db executeUpdate:sql];
     }];
     [dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
         
-        [[self getPropertiesDict] enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [propertydic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             @autoreleasepool {
                 if (![db columnExists:key inTableWithName:NSStringFromClass([self class])]) {
                     NSString *type = nil;
@@ -84,7 +92,7 @@ const static NSMutableDictionary *_propertiesForClassDict;
                 }
             }
         }];
-     }];    
+     }];
     return ret;
 }
 
