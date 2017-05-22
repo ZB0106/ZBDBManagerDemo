@@ -11,8 +11,6 @@
 #import "NSObject+ZB_Properties.h"
 #import "ZBDBbindingClass.h"
 
-@implementation NSObject (ZB_DBManager)
-
 #import "VersionDBManager.h"
 
 
@@ -86,9 +84,7 @@ const static NSMutableDictionary *_propertiesForClassDict;
                 }
             }
         }];
-    return ret;
-}
-    }];    
+     }];    
     return ret;
 }
 
