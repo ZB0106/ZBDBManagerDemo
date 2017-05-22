@@ -1,0 +1,8 @@
+platform :ios, "8.0"
+target "ZBDBManagerDemo” do
+	pod "FMDB"
+end
+target "ZBDBManagerDemoTests" do
+        pod "FMDB"
+end
+
