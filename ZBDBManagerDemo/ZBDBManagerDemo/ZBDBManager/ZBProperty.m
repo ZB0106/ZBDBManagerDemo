@@ -39,7 +39,7 @@
     objc_property_attribute_t *attrs = property_copyAttributeList(property, &attrCount);
     for (int i = 0; i < attrCount; i ++) {
         
-        NSLog(@"%@, %@",@(attrs[i].name),@(attrs[i].value));
+        NSLog(@"%@＋＋＋＋＋%@",@(attrs[i].name),@(attrs[i].value));
         switch (attrs[i].name[0]) {
             case 'T':
                 if (attrs[i].value) {
