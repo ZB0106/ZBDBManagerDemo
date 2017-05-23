@@ -13,4 +13,6 @@
 @property (nonatomic, copy) NSString *ClassName;
 @property (nonatomic, copy) NSString *DBClassName;
 + (FMDatabaseQueue *)getDBForClass:(Class)theClass;
+
++ (void)configureWithClassDict:(NSDictionary *)dict;
 @end

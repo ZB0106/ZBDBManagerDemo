@@ -17,14 +17,17 @@
 
 @implementation ZBDBbindingClass
 
-const static NSDictionary *_bindingdict = nil;
+const static NSMutableDictionary *_bindingdict = nil;
 
 +(void)load
 {
-    _bindingdict = @{
-                     @"CeShi":@"ZBCommonDataBaseQueue",
-                     @"Version":@"ZBCommonDataBaseQueue"
-                     };
+    
+    _bindingdict = @{}.mutableCopy;
+}
+
++ (void)configureWithClassDict:(NSDictionary *)dict
+{
+    [_bindingdict setValuesForKeysWithDictionary:dict];
 }
 
 + (FMDatabaseQueue *)getDBForClass:(Class)theClass

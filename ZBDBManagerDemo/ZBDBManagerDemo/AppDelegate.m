@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "VersionDBManager.h"
+#import "ZBDBbindingClass.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    //配置每个类使用的数据库
+    [ZBDBbindingClass configureWithClassDict:@{ @"CeShi":@"ZBCommonDataBaseQueue",
+                                                @"Version":@"ZBCommonDataBaseQueue"}];
     [VersionDBManager creatVersionTable];
     return YES;
 }
