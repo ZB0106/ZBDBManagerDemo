@@ -14,5 +14,5 @@
 + (BOOL)replaceIntoWithVersion:(Version *)version;
 + (NSString *)getVersionWithClassName:(NSString *)className;
 + (BOOL)isExistVersionWithClassName:(NSString *)className;
-
++ (BOOL)creatVersionTable;
 @end

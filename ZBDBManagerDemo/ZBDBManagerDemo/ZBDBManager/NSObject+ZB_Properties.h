@@ -14,6 +14,6 @@
 
 + (NSDictionary *)ZB_allProperties;
 
-- (NSDictionary *)getPropertiesDict;
++ (NSDictionary *)getPropertiesDict;
 + (instancetype)getPropertiesAndTypeDict;
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ZBDBbindingClass.h"
+#import "ZBCommonDataBaseQueue.h"
 
 
 @interface ZBDBbindingClass ()
@@ -21,16 +22,19 @@ const static NSDictionary *_bindingdict = nil;
 +(void)load
 {
     _bindingdict = @{
-                     @"ZBCommonDataBaseQueue":@"Ceshi"
+                     @"CeShi":@"ZBCommonDataBaseQueue",
+                     @"Version":@"ZBCommonDataBaseQueue"
                      };
 }
 
 + (FMDatabaseQueue *)getDBForClass:(Class)theClass
 {
-    
+    NSLog(@"%@== %@",NSStringFromClass(theClass),_bindingdict);
     NSString *db = [_bindingdict objectForKey:NSStringFromClass(theClass)];
-    
-    return [[NSClassFromString(db) alloc] init];
+    if (NSClassFromString(db) == [ZBCommonDataBaseQueue class]) {
+        return [ZBCommonDataBaseQueue zb_ShareCommonDataBaseQueue];
+    }
+    return nil;
 }
 
 @end

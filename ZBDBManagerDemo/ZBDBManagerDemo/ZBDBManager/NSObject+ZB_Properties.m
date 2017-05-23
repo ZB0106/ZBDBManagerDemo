@@ -7,9 +7,17 @@
 //
 
 #import "NSObject+ZB_Properties.h"
+#import "ZBProperty.h"
+
 
 @implementation NSObject (ZB_Properties)
 
+const static NSMutableDictionary *_propertiesForClassDict;
+
++ (void)load
+{
+    _propertiesForClassDict = @{}.mutableCopy;
+}
 
 + (NSDictionary *)ZB_allProperties
 {
@@ -30,48 +38,50 @@
     return dicM;
 }
 
-- (NSDictionary *)getPropertiesDict
++ (NSDictionary *)getPropertiesDict
 {
-    unsigned int zb_count = 0;
-    NSMutableDictionary *dictM = @{}.mutableCopy;
-    objc_property_t *properties = class_copyPropertyList([self class], &zb_count);
-    NSArray *allowDBProperties = nil;
-    if ([[self class] respondsToSelector:@selector(ZB_allowedDBPropertyNames)]){
-        allowDBProperties = [[self class] ZB_allowedDBPropertyNames];
-    }
-    NSArray *ignoreDBPropertyNames = nil;
-    if ([[self class] respondsToSelector:@selector(ZB_ignoredDBPropertyNames)]){
-        ignoreDBPropertyNames = [[self class] ZB_ignoredDBPropertyNames];
-    }
     
-    if (allowDBProperties.count) {
+    NSDictionary *propertydic = [_propertiesForClassDict objectForKey:NSStringFromClass(self)];
+    if (!propertydic) {
+
+        unsigned int zb_count = 0;
+        NSMutableDictionary *dictM = @{}.mutableCopy;
+        objc_property_t *properties = class_copyPropertyList([self class], &zb_count);
+        NSArray *allowDBProperties = nil;
+        if ([[self class] respondsToSelector:@selector(ZB_allowedDBPropertyNames)]){
+            allowDBProperties = [[self class] ZB_allowedDBPropertyNames];
+        }
+        NSArray *ignoreDBPropertyNames = nil;
+        if ([[self class] respondsToSelector:@selector(ZB_ignoredDBPropertyNames)]){
+            ignoreDBPropertyNames = [[self class] ZB_ignoredDBPropertyNames];
+        }
+        
+        if (allowDBProperties.count) {
+            for (NSUInteger i = 0; i < zb_count; i ++) {
+                objc_property_t property = properties[i];
+                ZBProperty *propertyObj = [ZBProperty zb_cachedPropertyWithProperty:property];
+                if ([allowDBProperties containsObject:propertyObj.name]) {
+                    [dictM setValue:propertyObj.typeEncoding forKey:propertyObj.name];
+                }
+            }
+            free(properties);
+            propertydic = [dictM copy];
+            [_propertiesForClassDict setObject:propertydic forKey:NSStringFromClass(self)];
+            return propertydic;
+        }
+        
         for (NSUInteger i = 0; i < zb_count; i ++) {
             objc_property_t property = properties[i];
-            const char *propertyName = property_getName(property);
-            NSString *name = [NSString stringWithUTF8String:propertyName];
-            if ([allowDBProperties containsObject:name]) {
-                id value = [self valueForKey:name];
-                value = value ?: [NSNull null];
-                [dictM setValue:value forKey:name];
+            ZBProperty *propertyObj = [ZBProperty zb_cachedPropertyWithProperty:property];
+            if (![ignoreDBPropertyNames containsObject:propertyObj.name]) {
+                [dictM setValue:propertyObj.typeEncoding forKey:propertyObj.name];
             }
         }
         free(properties);
-        return dictM;
+        propertydic = [dictM copy];
+        [_propertiesForClassDict setObject:propertydic forKey:NSStringFromClass(self)];
     }
-    
-    for (NSUInteger i = 0; i < zb_count; i ++) {
-        objc_property_t property = properties[i];
-        const char *propertyName = property_getName(property);
-        NSString *name = [NSString stringWithUTF8String:propertyName];
-        if (![ignoreDBPropertyNames containsObject:name]) {
-            id value = [self valueForKey:name];
-            value = value ?: [NSNull null];
-            [dictM setValue:value forKey:name];
-        }
-    }
-    free(properties);
-    return dictM;
-
+    return propertydic;
 }
 
 + (instancetype)getPropertiesAndTypeDict

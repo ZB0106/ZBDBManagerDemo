@@ -19,17 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.queque = [FMDatabaseQueue databaseQueueWithPath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"ceshi.db"]];
-    NSLog(@"%@",NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject);
-    
-    
-    CeShi *ce = [[CeShi alloc] init];
-    ce.name = @"hahaha";
-    ce.age = 11;
-    ce.array = [NSArray array];
-    ce.isMan = YES;
-//    [ce creatTableWithDBQueue:self.queque primaryKey:@"name" primaryKeyType:@"TEXT"];
-//    [ce ZB_insertObject:ce DBQueue:self.queque];
+
 }
 
 
@@ -41,9 +31,10 @@
     ce.age = 11;
     ce.array = [NSArray array];
     ce.isMan = YES;
-    [ce ZB_insertObject:ce DBQueue:self.queque];
     
-    [ce ZB_QueryWithDBQueue:self.queque];
+    [CeShi ZB_insertObject:ce primaryKey:@"name" primaryKeyType:@"TEXT"];
+    
+    NSLog(@"%@",NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject);
 }
 
 - (void)didReceiveMemoryWarning {

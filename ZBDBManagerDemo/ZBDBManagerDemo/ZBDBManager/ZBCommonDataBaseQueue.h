@@ -10,4 +10,6 @@
 
 @interface ZBCommonDataBaseQueue : FMDatabaseQueue
 
++ (instancetype)zb_ShareCommonDataBaseQueue;
+
 @end

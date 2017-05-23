@@ -10,134 +10,172 @@
 #import <objc/runtime.h>
 #import "NSObject+ZB_Properties.h"
 #import "ZBDBbindingClass.h"
+#import "ZBPropertyType.h"
 
 #import "VersionDBManager.h"
 
 
 @implementation NSObject (ZB_DBManager)
 
-const static NSMutableDictionary *_propertiesForClassDict;
+
 const static NSMutableDictionary *_versionForClassDict;
 + (void)load
 {
-    _propertiesForClassDict = @{}.mutableCopy;
+    
     _versionForClassDict = @{}.mutableCopy;
 }
 
-- (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
++ (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
 {
     
-    NSString *className = NSStringFromClass([self class]);
-    NSDictionary *propertydic = [_propertiesForClassDict objectForKey:className];
-    if (!propertydic) {
-        propertydic = [self getPropertiesDict];
-        [_propertiesForClassDict setObject:propertydic forKey:className];
-    }
-    
+    NSString *className = NSStringFromClass(self);
+        
     NSString *version = [_versionForClassDict objectForKey:className];
+    
+    NSDictionary *propertydic = [self getPropertiesDict];
     if (!version) {
-        version = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:propertydic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+        NSArray *propertyArrary = [propertydic.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:nil ascending:YES]]];
+        version = [propertyArrary componentsJoinedByString:@"_"];
+        [_versionForClassDict setObject:version forKey:className];
     }
-    BOOL isExsit = [VersionDBManager isExistVersionWithClassName:className];
-    if (isExsit) {
-        if ([[VersionDBManager getVersionWithClassName:className] isEqualToString:version]) {
+
+    if (version.length) {
+        if ([version isEqualToString:[VersionDBManager getVersionWithClassName:className]]) {
             
             return YES;
             
         } else {
             
-            Version *versionClass = [Version versionWithClassName:className version:version];
-            [VersionDBManager replaceIntoWithVersion:versionClass];
             //做更新表的操作
-        }
-    } else {
-        //做创建表的操作
-    }
-    __block BOOL ret = NO;
-    
-    __block NSString *sql = nil;
-    
-    FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:[self class]];
-    [dbQueue inDatabase:^(FMDatabase *db) {
-        sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (%@ %@ PRIMARY KEY);",NSStringFromClass([self class]),primaryKey,primaryKeyType];
-        [db executeUpdate:sql];
-    }];
-    [dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-        
-        [propertydic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            @autoreleasepool {
-                if (![db columnExists:key inTableWithName:NSStringFromClass([self class])]) {
-                    NSString *type = nil;
-                    if ([obj isKindOfClass:[NSNumber class]]) {
-                        type = @"integer";
-                        NSString *alertStr = [NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@",NSStringFromClass([self class]),key,type];
-                        ret = [db executeUpdate:alertStr];
-                        
-                    } else if ([obj isKindOfClass:[NSString class]]){
-                        type = @"TEXT";
-                        NSString *alertStr = [NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@",NSStringFromClass([self class]),key,type];
-                        ret = [db executeUpdate:alertStr];
-                        
-                    } else if([obj isKindOfClass:[NSData class]]) {
-                        type = @"BLOB";
-                        NSString *alertStr = [NSString stringWithFormat:@"ALTER TABLE %@ ADD %@ %@",NSStringFromClass([self class]),key,type];
-                        ret = [db executeUpdate:alertStr];
-                        
-                    } else {
-                        
-                    }
-                    if (!ret) {
-                        *rollback = YES;
-                    }
+            __block BOOL ret = NO;
+            __block NSString *sql = nil;
+            
+            FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:self];
+            [dbQueue inDatabase:^(FMDatabase *db) {
+                sql = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' ('%@' '%@' PRIMARY KEY)",NSStringFromClass(self),primaryKey,primaryKeyType];
+               ret = [db executeUpdate:sql];
+            }];
+            
+            if (ret) {
+                [dbQueue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+                    
+                    [propertydic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, ZBPropertyType *obj, BOOL * _Nonnull stop) {
+                        @autoreleasepool {
+                            if (![db columnExists:key inTableWithName:className]) {
+                                NSString *type = nil;
+                                if (obj.isNumberType || obj.isBoolType) {
+                                    type = @"integer";
+                                    
+                                } else if ([obj.typeClass isSubclassOfClass:[NSString class]]){
+                                    type = @"TEXT";
+                                    
+                                } else if(obj.isFromFoundation) {
+                                    type = @"BLOB";
+                                    
+                                } else {
+                                    
+                                }
+                                NSString *alertStr = [NSString stringWithFormat:@"ALTER TABLE '%@' ADD '%@' '%@'",NSStringFromClass(self),key,type];
+                                ret = [db executeUpdate:alertStr];
+                                
+                                if (!ret) {
+                                    *rollback = YES;
+                                }
+                            }
+                        }
+                    }];
+                }];
+                if (ret) {
+                    //保存版本信息
+                    Version *versionClass = [Version versionWithClassName:className version:version];
+                    [VersionDBManager replaceIntoWithVersion:versionClass];
                 }
             }
-        }];
-     }];
-    return ret;
+            
+            return ret;
+        }
+            
+    } else {
+        
+    return NO;
+    
+    }
 }
 
-- (BOOL)ZB_insertObject:(id)object DBQueue:(FMDatabaseQueue *)dbQueue
++ (BOOL)ZB_insertObject:(id)object primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
 {
     __block BOOL ret = NO;
+    
+    if (![self creatTableWithPrimaryKey:primaryKey primaryKeyType:primaryKeyType]) {
+        return ret;
+    }
+     FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:self];
     [dbQueue inDatabase:^(FMDatabase *db) {
         
         __block NSString *keyStr = @"";
         __block NSString *valueStr = @"";
-        __block NSMutableArray *valueArray = @[].mutableCopy;
-        __block int idx = 0;
+//        __block NSMutableArray *valueArray = @[].mutableCopy;
         
-        [[self getPropertiesDict] enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [[self getPropertiesDict].allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//            if (idx == 0) {
+//                keyStr = [keyStr stringByAppendingFormat:@"%@",obj];
+//                valueStr = [valueStr stringByAppendingString:@"?"];
+//            } else {
+//                keyStr = [keyStr stringByAppendingFormat:@",%@",obj];
+//                valueStr = [valueStr stringByAppendingString:@",?"];
+//            }
+//            id value = [object valueForKey:obj];
+//            [valueArray addObject:value];
+            
             if (idx == 0) {
-                keyStr = [keyStr stringByAppendingFormat:@"%@",key];
-                valueStr = [valueStr stringByAppendingString:@"?"];
+                keyStr = [keyStr stringByAppendingFormat:@"'%@'",obj];
+                valueStr = [valueStr stringByAppendingFormat:@"'%@'",[object valueForKey:obj]];
             } else {
-                keyStr = [keyStr stringByAppendingFormat:@",%@",key];
-                valueStr = [valueStr stringByAppendingString:@",?"];
+                keyStr = [keyStr stringByAppendingFormat:@",'%@'",obj];
+                valueStr = [valueStr stringByAppendingFormat:@",'%@'",[object valueForKey:obj]];
             }
-            idx ++;
-            [valueArray addObject:obj];
-
         }];
-        
-        NSLog(@"%@",[self getPropertiesDict]);
-        NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) values (%@);",NSStringFromClass([self class]),keyStr,valueStr];
-        ret = [db executeUpdate:sql withArgumentsInArray:valueArray];
+        NSString *sql = [NSString stringWithFormat:@"REPLACE INTO '%@' (%@) values (%@)",NSStringFromClass(self),keyStr,valueStr];
+        ret = [db executeUpdate:sql];
+//        NSString *sql = [NSString stringWithFormat:@"REPLACE INTO %@ (%@) values (%@);",NSStringFromClass(self),keyStr,valueStr];
+//        ret = [db executeUpdate:sql withArgumentsInArray:valueArray];
     }];
     return ret;
 }
 
-- (FMResultSet *)ZB_QueryWithDBQueue:(FMDatabaseQueue *)dbQueue
++ (BOOL)ZB_updateWithSql:(NSString *)sql primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
 {
+    if (![self creatTableWithPrimaryKey:primaryKey primaryKeyType:primaryKeyType]) {
+        return nil;
+    }
+    __block BOOL ret = NO;
     
+    FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:self];
     [dbQueue inDatabase:^(FMDatabase *db) {
-        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM \'%@\'",NSStringFromClass([self class])];
+        ret = [db executeUpdate:sql];
+    }];
+    return ret;
+
+}
++ (NSArray *)ZB_QueryWithSql:(NSString *)sql primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType
+{
+    if (![self creatTableWithPrimaryKey:primaryKey primaryKeyType:primaryKeyType]) {
+        return nil;
+    }
+    __block NSMutableArray *arrayM = @[].mutableCopy;
+    
+    FMDatabaseQueue *dbQueue = [ZBDBbindingClass getDBForClass:self];
+    NSDictionary *dict = [self getPropertiesDict];
+    [dbQueue inDatabase:^(FMDatabase *db) {
        FMResultSet *result = [db executeQuery:sql];
         while (result && [result next]) {
-            id ce = [result objectForColumnName:@"name"];
-            NSLog(@"11111111===%@====%@",ce,NSStringFromClass([ce class]));
-            
+          id obj = [[self alloc] init];
+            [dict.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull property, NSUInteger idx, BOOL * _Nonnull stop) {
+                [obj setValue:[result objectForColumnName:property] forKey:property];
+            }];
+            [arrayM addObject:obj];
         }
     }];
-    return nil;
+    return arrayM;
 }
 @end

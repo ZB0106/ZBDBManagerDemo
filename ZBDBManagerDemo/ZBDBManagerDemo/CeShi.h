@@ -11,7 +11,7 @@
 @interface CeShi : NSObject
 
 @property (nonatomic, copy) NSString *name;
-@property (nonatomic, assign) BOOL isMan;
+@property (nonatomic, assign, getter=isgetMan) BOOL isMan;
 @property (nonatomic, assign) NSInteger age;
 @property (nonatomic, strong) NSArray *array;
 

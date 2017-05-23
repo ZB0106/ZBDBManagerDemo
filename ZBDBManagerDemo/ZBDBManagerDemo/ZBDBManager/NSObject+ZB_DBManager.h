@@ -11,8 +11,9 @@
 
 @interface NSObject (ZB_DBManager)
 
-- (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
-- (BOOL)ZB_insertObject:(id)object DBQueue:(FMDatabaseQueue *)dbQueue;
-- (FMResultSet *)ZB_QueryWithDBQueue:(FMDatabaseQueue *)dbQueue;
++ (BOOL)creatTableWithPrimaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
++ (BOOL)ZB_insertObject:(id)object primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
++ (NSArray *)ZB_QueryWithSql:(NSString *)sql primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
++ (BOOL)ZB_updateWithSql:(NSString *)sql primaryKey:(NSString *)primaryKey primaryKeyType:(NSString *)primaryKeyType;
 
 @end
