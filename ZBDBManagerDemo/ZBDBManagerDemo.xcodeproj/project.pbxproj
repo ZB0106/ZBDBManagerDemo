@@ -17,16 +17,16 @@
 		04C71DBF1ED31BD200E04BE8 /* CeShi.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DBE1ED31BD200E04BE8 /* CeShi.m */; };
 		04C71DC21ED31BEA00E04BE8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DC11ED31BEA00E04BE8 /* ViewController.m */; };
 		04C71DD11ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DC51ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m */; };
-		04C71DD21ED31BFA00E04BE8 /* NSObject+ZB_Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DC71ED31BFA00E04BE8 /* NSObject+ZB_Properties.m */; };
 		04C71DD31ED31BFA00E04BE8 /* Version.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DC91ED31BFA00E04BE8 /* Version.m */; };
 		04C71DD41ED31BFA00E04BE8 /* VersionDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCB1ED31BFA00E04BE8 /* VersionDBManager.m */; };
 		04C71DD51ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCD1ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m */; };
 		04C71DD61ED31BFA00E04BE8 /* ZBDBbindingClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */; };
-		04C71DD91ED32A6A00E04BE8 /* ZBProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */; };
 		0EA94CF5530F682864694F2F /* libPods-ZBDBManagerDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F943CA3037D2F02D8A7880E8 /* libPods-ZBDBManagerDemo.a */; };
-		21DFF3CE1ED3CCD800F569A0 /* ZBPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DFF3CD1ED3CCD800F569A0 /* ZBPropertyType.m */; };
-		21DFF3D11ED3DF7800F569A0 /* ZBDBConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DFF3D01ED3DF7800F569A0 /* ZBDBConst.m */; };
-		21DFF3D41ED3E03D00F569A0 /* ZBDBFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 21DFF3D31ED3E03D00F569A0 /* ZBDBFoundation.m */; };
+		21556D9D1EF216590014F38D /* NSObject+ZB_Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 21556D931EF216590014F38D /* NSObject+ZB_Properties.m */; };
+		21556D9E1EF216590014F38D /* ZBDBConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 21556D951EF216590014F38D /* ZBDBConst.m */; };
+		21556D9F1EF216590014F38D /* ZBDBFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = 21556D971EF216590014F38D /* ZBDBFoundation.m */; };
+		21556DA01EF216590014F38D /* ZBProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 21556D9A1EF216590014F38D /* ZBProperty.m */; };
+		21556DA11EF216590014F38D /* ZBPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 21556D9C1EF216590014F38D /* ZBPropertyType.m */; };
 		CDE767705D506C260D80FCB4 /* libPods-ZBDBManagerDemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0A1382266EB21648FFA9F0 /* libPods-ZBDBManagerDemoTests.a */; };
 /* End PBXBuildFile section */
 
@@ -69,8 +69,6 @@
 		04C71DC11ED31BEA00E04BE8 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		04C71DC41ED31BFA00E04BE8 /* NSObject+ZB_DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZB_DBManager.h"; sourceTree = "<group>"; };
 		04C71DC51ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZB_DBManager.m"; sourceTree = "<group>"; };
-		04C71DC61ED31BFA00E04BE8 /* NSObject+ZB_Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZB_Properties.h"; sourceTree = "<group>"; };
-		04C71DC71ED31BFA00E04BE8 /* NSObject+ZB_Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZB_Properties.m"; sourceTree = "<group>"; };
 		04C71DC81ED31BFA00E04BE8 /* Version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Version.h; sourceTree = "<group>"; };
 		04C71DC91ED31BFA00E04BE8 /* Version.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Version.m; sourceTree = "<group>"; };
 		04C71DCA1ED31BFA00E04BE8 /* VersionDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionDBManager.h; sourceTree = "<group>"; };
@@ -79,16 +77,18 @@
 		04C71DCD1ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBCommonDataBaseQueue.m; sourceTree = "<group>"; };
 		04C71DCE1ED31BFA00E04BE8 /* ZBDBbindingClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBbindingClass.h; sourceTree = "<group>"; };
 		04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBbindingClass.m; sourceTree = "<group>"; };
-		04C71DD01ED31BFA00E04BE8 /* ZBDBProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBProtocol.h; sourceTree = "<group>"; };
-		04C71DD71ED32A6A00E04BE8 /* ZBProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBProperty.h; sourceTree = "<group>"; };
-		04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProperty.m; sourceTree = "<group>"; };
 		1B0A1382266EB21648FFA9F0 /* libPods-ZBDBManagerDemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZBDBManagerDemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		21DFF3CC1ED3CCD800F569A0 /* ZBPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPropertyType.h; sourceTree = "<group>"; };
-		21DFF3CD1ED3CCD800F569A0 /* ZBPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPropertyType.m; sourceTree = "<group>"; };
-		21DFF3CF1ED3DF7800F569A0 /* ZBDBConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBConst.h; sourceTree = "<group>"; };
-		21DFF3D01ED3DF7800F569A0 /* ZBDBConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBConst.m; sourceTree = "<group>"; };
-		21DFF3D21ED3E03D00F569A0 /* ZBDBFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBFoundation.h; sourceTree = "<group>"; };
-		21DFF3D31ED3E03D00F569A0 /* ZBDBFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBFoundation.m; sourceTree = "<group>"; };
+		21556D921EF216590014F38D /* NSObject+ZB_Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZB_Properties.h"; sourceTree = "<group>"; };
+		21556D931EF216590014F38D /* NSObject+ZB_Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZB_Properties.m"; sourceTree = "<group>"; };
+		21556D941EF216590014F38D /* ZBDBConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBConst.h; sourceTree = "<group>"; };
+		21556D951EF216590014F38D /* ZBDBConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBConst.m; sourceTree = "<group>"; };
+		21556D961EF216590014F38D /* ZBDBFoundation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBFoundation.h; sourceTree = "<group>"; };
+		21556D971EF216590014F38D /* ZBDBFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBDBFoundation.m; sourceTree = "<group>"; };
+		21556D981EF216590014F38D /* ZBDBProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBDBProtocol.h; sourceTree = "<group>"; };
+		21556D991EF216590014F38D /* ZBProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBProperty.h; sourceTree = "<group>"; };
+		21556D9A1EF216590014F38D /* ZBProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBProperty.m; sourceTree = "<group>"; };
+		21556D9B1EF216590014F38D /* ZBPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBPropertyType.h; sourceTree = "<group>"; };
+		21556D9C1EF216590014F38D /* ZBPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBPropertyType.m; sourceTree = "<group>"; };
 		87340446E83C461C5CE2043F /* Pods-ZBDBManagerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBDBManagerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZBDBManagerDemo/Pods-ZBDBManagerDemo.release.xcconfig"; sourceTree = "<group>"; };
 		95D93379A63D36A1A7E6855E /* Pods-ZBDBManagerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBDBManagerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZBDBManagerDemo/Pods-ZBDBManagerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F51392951CB3C1325683E8C9 /* Pods-ZBDBManagerDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZBDBManagerDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZBDBManagerDemoTests/Pods-ZBDBManagerDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -192,10 +192,9 @@
 		04C71DC31ED31BFA00E04BE8 /* ZBDBManager */ = {
 			isa = PBXGroup;
 			children = (
+				21556D911EF216590014F38D /* ZBProperty */,
 				04C71DC41ED31BFA00E04BE8 /* NSObject+ZB_DBManager.h */,
 				04C71DC51ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m */,
-				04C71DC61ED31BFA00E04BE8 /* NSObject+ZB_Properties.h */,
-				04C71DC71ED31BFA00E04BE8 /* NSObject+ZB_Properties.m */,
 				04C71DC81ED31BFA00E04BE8 /* Version.h */,
 				04C71DC91ED31BFA00E04BE8 /* Version.m */,
 				04C71DCA1ED31BFA00E04BE8 /* VersionDBManager.h */,
@@ -204,17 +203,26 @@
 				04C71DCD1ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m */,
 				04C71DCE1ED31BFA00E04BE8 /* ZBDBbindingClass.h */,
 				04C71DCF1ED31BFA00E04BE8 /* ZBDBbindingClass.m */,
-				04C71DD01ED31BFA00E04BE8 /* ZBDBProtocol.h */,
-				04C71DD71ED32A6A00E04BE8 /* ZBProperty.h */,
-				04C71DD81ED32A6A00E04BE8 /* ZBProperty.m */,
-				21DFF3CC1ED3CCD800F569A0 /* ZBPropertyType.h */,
-				21DFF3CD1ED3CCD800F569A0 /* ZBPropertyType.m */,
-				21DFF3CF1ED3DF7800F569A0 /* ZBDBConst.h */,
-				21DFF3D01ED3DF7800F569A0 /* ZBDBConst.m */,
-				21DFF3D21ED3E03D00F569A0 /* ZBDBFoundation.h */,
-				21DFF3D31ED3E03D00F569A0 /* ZBDBFoundation.m */,
 			);
 			path = ZBDBManager;
+			sourceTree = "<group>";
+		};
+		21556D911EF216590014F38D /* ZBProperty */ = {
+			isa = PBXGroup;
+			children = (
+				21556D921EF216590014F38D /* NSObject+ZB_Properties.h */,
+				21556D931EF216590014F38D /* NSObject+ZB_Properties.m */,
+				21556D941EF216590014F38D /* ZBDBConst.h */,
+				21556D951EF216590014F38D /* ZBDBConst.m */,
+				21556D961EF216590014F38D /* ZBDBFoundation.h */,
+				21556D971EF216590014F38D /* ZBDBFoundation.m */,
+				21556D981EF216590014F38D /* ZBDBProtocol.h */,
+				21556D991EF216590014F38D /* ZBProperty.h */,
+				21556D9A1EF216590014F38D /* ZBProperty.m */,
+				21556D9B1EF216590014F38D /* ZBPropertyType.h */,
+				21556D9C1EF216590014F38D /* ZBPropertyType.m */,
+			);
+			path = ZBProperty;
 			sourceTree = "<group>";
 		};
 		3463E8743EFB0F2D3591D360 /* Frameworks */ = {
@@ -470,19 +478,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21556DA01EF216590014F38D /* ZBProperty.m in Sources */,
+				21556D9D1EF216590014F38D /* NSObject+ZB_Properties.m in Sources */,
+				21556DA11EF216590014F38D /* ZBPropertyType.m in Sources */,
 				04C71DD51ED31BFA00E04BE8 /* ZBCommonDataBaseQueue.m in Sources */,
 				04C71D8F1ED31BB900E04BE8 /* AppDelegate.m in Sources */,
-				21DFF3D11ED3DF7800F569A0 /* ZBDBConst.m in Sources */,
 				04C71DD11ED31BFA00E04BE8 /* NSObject+ZB_DBManager.m in Sources */,
-				04C71DD21ED31BFA00E04BE8 /* NSObject+ZB_Properties.m in Sources */,
+				21556D9F1EF216590014F38D /* ZBDBFoundation.m in Sources */,
 				04C71DBF1ED31BD200E04BE8 /* CeShi.m in Sources */,
-				04C71DD91ED32A6A00E04BE8 /* ZBProperty.m in Sources */,
 				04C71DD41ED31BFA00E04BE8 /* VersionDBManager.m in Sources */,
 				04C71DD61ED31BFA00E04BE8 /* ZBDBbindingClass.m in Sources */,
 				04C71DC21ED31BEA00E04BE8 /* ViewController.m in Sources */,
-				21DFF3D41ED3E03D00F569A0 /* ZBDBFoundation.m in Sources */,
+				21556D9E1EF216590014F38D /* ZBDBConst.m in Sources */,
 				04C71D8C1ED31BB900E04BE8 /* main.m in Sources */,
-				21DFF3CE1ED3CCD800F569A0 /* ZBPropertyType.m in Sources */,
 				04C71DD31ED31BFA00E04BE8 /* Version.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
